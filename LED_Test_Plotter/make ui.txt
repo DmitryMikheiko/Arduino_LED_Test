@@ -1,0 +1,1 @@
+pyuic5 -x mainform.ui -o mainform.py
