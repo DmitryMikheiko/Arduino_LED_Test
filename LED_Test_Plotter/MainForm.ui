@@ -93,7 +93,7 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>355</x>
       <y>20</y>
       <width>301</width>
       <height>51</height>
@@ -165,7 +165,7 @@ background-color: rgb(255, 255, 255);</string>
      <rect>
       <x>50</x>
       <y>20</y>
-      <width>181</width>
+      <width>296</width>
       <height>51</height>
      </rect>
     </property>
@@ -190,7 +190,7 @@ background-color: rgb(255, 255, 255);</string>
     <widget class="QPushButton" name="pushButton_GO">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>245</x>
        <y>10</y>
        <width>41</width>
        <height>31</height>
@@ -205,6 +205,46 @@ background-color: rgb(255, 255, 255);</string>
       <string>GO</string>
      </property>
     </widget>
+    <widget class="QComboBox" name="comboBox_LED_Model">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>10</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>WS2812b</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>WS2813</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SK6812RGBW</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SK9822</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>APA102</string>
+      </property>
+     </item>
+    </widget>
    </widget>
    <widget class="QProgressBar" name="progressBar">
     <property name="enabled">
@@ -212,14 +252,15 @@ background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>675</x>
       <y>30</y>
-      <width>421</width>
+      <width>336</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <pointsize>12</pointsize>
       <strikeout>false</strikeout>
      </font>
     </property>

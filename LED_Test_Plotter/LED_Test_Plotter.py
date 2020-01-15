@@ -19,7 +19,7 @@ class LED_Test_App(QtWidgets.QMainWindow, mainform.Ui_MainWindow):
         super().__init__()
         self.setupUi(self) 
         self.comboBox_Port.addItems(serial_ports())
-        self.pushButton_GO.clicked.connect(self.start_test)
+        self.pushButton_GO.clicked.connect(self.start_test) # start_test
         self.dependence_LI.toggled.connect(self.graph_dependence_changed)
         self.dependence_IC.toggled.connect(self.graph_dependence_changed)
         self.dependence_LC.toggled.connect(self.graph_dependence_changed)
@@ -39,7 +39,7 @@ class LED_Test_App(QtWidgets.QMainWindow, mainform.Ui_MainWindow):
         self.graphicsView_Blue.setBackground('w')       
         self.graphicsView_White.setBackground('w')
 
-        self.led_test_core = LED_Test_Core()
+        
         self.red = np.zeros((1,2))
         self.green = np.zeros((1,2))
         self.blue = np.zeros((1,2))
@@ -57,18 +57,33 @@ class LED_Test_App(QtWidgets.QMainWindow, mainform.Ui_MainWindow):
             print(e)
     #def graph_resize(self):
       #  self.MainWindow.get
-    def start_test(self):
-        try:          
-            self.port = serial.Serial(self.comboBox_Port.currentText(),115200)
-            time.sleep(3)         
-            data = self.led_test_core.run_test(self.port)
-            I_const = data[(data.Red == 0) & (data.Green == 0) & (data.Blue == 0) & (data.White == 0)][['I']].to_numpy(dtype = float)
-            zero_point = np.array([[I_const[0,0],0]])
-            self.red = np.vstack((zero_point, data[data.Red > 0][['I','L']].to_numpy(dtype = float)  ))   
-            self.green = np.vstack((zero_point, data[data.Green > 0][['I','L']].to_numpy(dtype = float) ))  
-            self.blue = np.vstack((zero_point, data[data.Blue > 0][['I','L']].to_numpy(dtype = float) ))  
-            self.white = np.vstack((zero_point, data[data.White > 0][['I','L']].to_numpy(dtype = float) ))            
-            self.plot_all_graphs()
+
+    def start_test(self):      
+        try:                   
+            self.port = serial.Serial(self.comboBox_Port.currentText(),115200,timeout = 0.1)
+            time.sleep(3)    
+            self.led_test_core = LED_Test_Core(self.port)
+            if(self.led_test_core.set_led_model(self.comboBox_LED_Model.currentText()) == False): 
+                print("[ERROR]: LED model setting")
+                return
+            self.test_thread()
+        except Exception as e:
+            print(e)
+    def test_thread(self):
+        self.progressBar.setVisible(True) 
+        self.led_test_core.progress_handler = self.progressBar.setValue
+        data = self.led_test_core.run_test()
+        self.test_finished(data)
+    def test_finished(self,data):
+        I_const = data[(data.Red == 0) & (data.Green == 0) & (data.Blue == 0) & (data.White == 0)][['I']].to_numpy(dtype = float)
+        zero_point = np.array([[I_const[0,0],0]])
+        self.red = np.vstack((zero_point, data[data.Red > 0][['I','L']].to_numpy(dtype = float)  ))   
+        self.green = np.vstack((zero_point, data[data.Green > 0][['I','L']].to_numpy(dtype = float) ))  
+        self.blue = np.vstack((zero_point, data[data.Blue > 0][['I','L']].to_numpy(dtype = float) ))  
+        self.white = np.vstack((zero_point, data[data.White > 0][['I','L']].to_numpy(dtype = float) ))            
+        self.plot_all_graphs()
+        self.progressBar.setVisible(False) 
+        try: 
             self.port.close()
         except Exception as e:
             print(e)
@@ -126,7 +141,8 @@ class LED_Test_App(QtWidgets.QMainWindow, mainform.Ui_MainWindow):
             return np.column_stack((range(data.shape[0]),data[:,1]))
 
     def get_graph_legend(self,data):
-        return "<span>&nbsp;&nbsp;&nbsp;&nbsp;Imax = " + str(data.max(axis=0)[0]) + "mA Lmax = " + str(data.max(axis=0)[1]) + " mV</span>"
+        return "<span>&nbsp;&nbsp;&nbsp;&nbsp;Imax = " + str(data.max(axis=0)[0]) + " mA Lmax = " + str(data.max(axis=0)[1]) + " mV<br>\
+                      &nbsp;&nbsp;&nbsp;&nbsp;Imin = " + str(data.min(axis=0)[0]) + " mA</span>"
 
     def plot_graph_R(self,data):     
         pen=pyqtgraph.mkPen(color='r',width=2)
@@ -166,16 +182,14 @@ class LED_Test_App(QtWidgets.QMainWindow, mainform.Ui_MainWindow):
             self.graphicsView_White_legend.scene().removeItem(self.graphicsView_White_legend)
         except Exception as e: pass
         self.graphicsView_White_legend = self.graphicsView_White.addLegend()
-        self.graphicsView_White.plot(data_c[:,0],data_c[:,1],pen=pen,name = s,clear=True)
-
-    def test_thread(self):
-        for n in range(101):
-            self.progressBar.setValue(n)
-            time.sleep(0.03)
-
+        self.graphicsView_White.plot(data_c[:,0],data_c[:,1],pen=pen,name = s,clear=True)    
 
 class LED_Test_Core():
-    def __init__(self):
+    def __init__(self,port):
+        self.port = port
+        self.progress_handler = None
+        self.color_max_value = 255 # (0-255)
+        self.color_max_value += 1
         self.measurements = pd.DataFrame({
                             'Red'   :[0],
                             'Green' :[0],
@@ -184,22 +198,25 @@ class LED_Test_Core():
                             'I'     :[0],
                             'L'     :[0]
                             })
-
-    def run_test(self,port):
-        self.port = port
-        self.measurements = self.measurements.iloc[0:0]
-        n = 256
-        for r in range(n):
-            self.add_measurement(r,0,0,0)
-        for g in range(n):
-            self.add_measurement(0,g,0,0)
-        for b in range(n):
-            self.add_measurement(0,0,b,0)
-        for w in range(n):
-            self.add_measurement(0,0,0,w)
+    def run_test(self):       
+        self.measurements = self.measurements.iloc[0:0]      
+        self.progress = 0
+        for r in range(self.color_max_value):
+            self.__add_measurement(r,0,0,0)
+            self.__inc_progress()
+        for g in range(self.color_max_value):
+            self.__add_measurement(0,g,0,0)
+            self.__inc_progress()
+        for b in range(self.color_max_value):
+            self.__add_measurement(0,0,b,0)
+            self.__inc_progress()
+        for w in range(self.color_max_value):
+            self.__add_measurement(0,0,0,w)
+            self.__inc_progress()
+        self.set_color(0,0,0,0)
         return self.measurements
-    def add_measurement(self,R,G,B,W):
-        response = self.send_color(R,G,B,W)
+    def __add_measurement(self,R,G,B,W):
+        response = self.set_color(R,G,B,W)
         response = response.split(' ')
         self.measurements = self.measurements.append({
                             'Red'   : R,
@@ -210,10 +227,17 @@ class LED_Test_Core():
                             'L'     : response[1]
                                   },ignore_index=True)           
 
-    def send_color(self,R,G,B,W):
+    def set_led_model(self,model):
+        self.port.write(model.encode())
+        return self.port.readline().decode("utf-8").strip() == "ok"
+    def set_color(self,R,G,B,W):
         arg_str = str(R) +' '+ str(G) +' '+ str(B) +' '+ str(W)
         self.port.write(arg_str.encode())
         return self.port.readline().decode("utf-8").strip()
+    def __inc_progress(self):
+        if self.progress_handler is not None:
+            self.progress += 1
+            self.progress_handler(self.progress / (self.color_max_value * 4) * 100)
     
 def main():
     app = QtWidgets.QApplication(sys.argv)  
