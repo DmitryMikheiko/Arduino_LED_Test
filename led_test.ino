@@ -1,14 +1,20 @@
 #include <Adafruit_ADS1015.h>
 #include <Adafruit_NeoPixel.h>
+#include <APA102.h>
 
-#define ADC_Filter_K 5
-#define Rs 4.0f
+#define ADC_Filter_K 5 //samples
+#define Rs 4.0f // Om
 
 #define repeat(n) for(int i=0;i<n;i++)
 
-#define LED_PIN 7
+#define LED_PIN 7 
+#define LED_SPI_CLK_Pin  8
+#define LED_SPI_DATA_Pin  9
 #define LEDs_Count 10
 bool RGBW_LED = false;
+bool SPI_LED = false;
+rgb_color colors[LEDs_Count];
+int R(0),G(0),B(0),W(0);
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = pin number (most are valid)
@@ -18,6 +24,7 @@ bool RGBW_LED = false;
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDs_Count, LED_PIN, NEO_GRB + NEO_KHZ800);
+APA102<LED_SPI_DATA_Pin, LED_SPI_CLK_Pin> spi_strip;
 Adafruit_ADS1115 ads;  
 
 void PrintSensors(){
@@ -42,10 +49,7 @@ void PrintSensors(){
 
   Serial.print(adc_I);
   Serial.print(' ');
-  Serial.print(adc_L);
-  //Serial.print("I: ");Serial.print(adc_I);Serial.println(" mA");
-  //Serial.print("L: ");Serial.print(adc_L);Serial.println(" mV");
-  Serial.println();
+  Serial.println(adc_L);
 }
 void setup() {
   Serial.begin(115200);
@@ -54,7 +58,6 @@ void setup() {
   strip.begin();
   Serial.setTimeout(10);
 }
-int R,G,B,W;
 void loop() {
   while(true){
     if(Serial.available() > 0){
@@ -63,24 +66,40 @@ void loop() {
       
       if(args_count == 0){
         args.toLowerCase();
-        if(args.indexOf("sk6812") != -1) {
+        if(args.indexOf("sk6812") != -1 ){
           RGBW_LED = true;
-          strip.updateType(NEO_RGBW);
+          SPI_LED = false;
+          strip.updateType(NEO_GRBW);
           Serial.println("ok");
         }
-        else if(args.indexOf("ws2812b") != -1){
+        else if(args.indexOf("ws2812") != -1 || args.indexOf("ws2813") != -1 ){
           RGBW_LED = false;
+          SPI_LED = false;
           strip.updateType(NEO_GRB);
+          Serial.println("ok");
+        }
+        else if(args.indexOf("sk9822") != -1 || args.indexOf("apa102") != -1){
+          RGBW_LED = false;
+          SPI_LED = true;
           Serial.println("ok");
         }
       }
       else {
-        if(RGBW_LED) strip.fill(Adafruit_NeoPixel::Color(R,G,B,W),0,LEDs_Count);
+        if(RGBW_LED) {
+          strip.fill(Adafruit_NeoPixel::Color(R,G,B,W),0,LEDs_Count);
+          strip.show();
+        }
         else {
           if(W > 0) R=G=B=W;
-          strip.fill(Adafruit_NeoPixel::Color(R,G,B),0,LEDs_Count);
+          if(SPI_LED) {
+            for(int i = 0; i < LEDs_Count; i++) colors[i] = rgb_color(R,G,B);
+            spi_strip.write(colors, LEDs_Count, 31);  
+          }
+          else {
+            strip.fill(Adafruit_NeoPixel::Color(R,G,B),0,LEDs_Count);  
+            strip.show();   
+          }
         }
-        strip.show();
         delay(10);
         PrintSensors();
         R=G=B=W=0;
