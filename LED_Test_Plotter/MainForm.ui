@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>837</height>
+    <width>1043</width>
+    <height>858</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,6 +57,15 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="PlotWidget" name="graphicsView_White">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0">
       <widget class="PlotWidget" name="graphicsView_Red">
        <property name="font">
@@ -79,23 +88,14 @@ background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="PlotWidget" name="graphicsView_White">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>355</x>
+      <x>430</x>
       <y>20</y>
-      <width>301</width>
+      <width>326</width>
       <height>51</height>
      </rect>
     </property>
@@ -105,7 +105,7 @@ background-color: rgb(255, 255, 255);</string>
     <widget class="QRadioButton" name="dependence_IC">
      <property name="geometry">
       <rect>
-       <x>105</x>
+       <x>85</x>
        <y>17</y>
        <width>82</width>
        <height>17</height>
@@ -144,7 +144,7 @@ background-color: rgb(255, 255, 255);</string>
     <widget class="QRadioButton" name="dependence_LC">
      <property name="geometry">
       <rect>
-       <x>205</x>
+       <x>175</x>
        <y>17</y>
        <width>82</width>
        <height>17</height>
@@ -159,13 +159,31 @@ background-color: rgb(255, 255, 255);</string>
       <string>L(Code)</string>
      </property>
     </widget>
+    <widget class="QRadioButton" name="dependence_All">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>17</y>
+       <width>56</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>20</x>
       <y>20</y>
-      <width>296</width>
+      <width>401</width>
       <height>51</height>
      </rect>
     </property>
@@ -190,7 +208,7 @@ background-color: rgb(255, 255, 255);</string>
     <widget class="QPushButton" name="pushButton_GO">
      <property name="geometry">
       <rect>
-       <x>245</x>
+       <x>265</x>
        <y>10</y>
        <width>41</width>
        <height>31</height>
@@ -210,7 +228,7 @@ background-color: rgb(255, 255, 255);</string>
       <rect>
        <x>130</x>
        <y>10</y>
-       <width>111</width>
+       <width>131</width>
        <height>31</height>
       </rect>
      </property>
@@ -245,6 +263,24 @@ background-color: rgb(255, 255, 255);</string>
       </property>
      </item>
     </widget>
+    <widget class="QPushButton" name="pushButton_GO_FAST">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>10</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>GO FAST</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QProgressBar" name="progressBar">
     <property name="enabled">
@@ -252,9 +288,9 @@ background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>675</x>
+      <x>770</x>
       <y>30</y>
-      <width>336</width>
+      <width>266</width>
       <height>31</height>
      </rect>
     </property>
@@ -274,7 +310,7 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1046</width>
+     <width>1043</width>
      <height>21</height>
     </rect>
    </property>
