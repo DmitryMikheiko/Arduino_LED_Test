@@ -1,0 +1,406 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L 1085:1085 IC1
+U 1 1 5E56DD75
+P 4400 2450
+F 0 "IC1" H 4950 2715 50  0000 C CNN
+F 1 "ADS1115" H 4950 2624 50  0000 C CNN
+F 2 "1085" H 5350 2550 50  0001 L CNN
+F 3 "https://cdn-shop.adafruit.com/datasheets/ads1115.pdf" H 5350 2450 50  0001 L CNN
+F 4 "Data Conversion IC Development Tools ADS1115 16-Bit ADC - 4 Channel with Programmable Gain Amplifier" H 5350 2350 50  0001 L CNN "Description"
+F 5 "5" H 5350 2250 50  0001 L CNN "Height"
+F 6 "" H 5350 2150 50  0001 L CNN "RS Part Number"
+F 7 "" H 5350 2050 50  0001 L CNN "RS Price/Stock"
+F 8 "Adafruit" H 5350 1950 50  0001 L CNN "Manufacturer_Name"
+F 9 "1085" H 5350 1850 50  0001 L CNN "Manufacturer_Part_Number"
+	1    4400 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Q_Photo_NPN Q1
+U 1 1 5E57AD80
+P 2800 6000
+F 0 "Q1" H 2991 6046 50  0000 L CNN
+F 1 "TEMT6000" H 2991 5955 50  0000 L CNN
+F 2 "" H 3000 6100 50  0001 C CNN
+F 3 "~" H 2800 6000 50  0001 C CNN
+	1    2800 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5E57CA37
+P 2900 6550
+F 0 "R1" H 2970 6596 50  0000 L CNN
+F 1 "10k" H 2970 6505 50  0000 L CNN
+F 2 "" V 2830 6550 50  0001 C CNN
+F 3 "~" H 2900 6550 50  0001 C CNN
+	1    2900 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 6200 2900 6300
+$Comp
+L power:GND #PWR02
+U 1 1 5E57CF9E
+P 2900 6800
+F 0 "#PWR02" H 2900 6550 50  0001 C CNN
+F 1 "GND" H 2905 6627 50  0000 C CNN
+F 2 "" H 2900 6800 50  0001 C CNN
+F 3 "" H 2900 6800 50  0001 C CNN
+	1    2900 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 5E57DD13
+P 2900 5650
+F 0 "#PWR01" H 2900 5500 50  0001 C CNN
+F 1 "+5V" H 2915 5823 50  0000 C CNN
+F 2 "" H 2900 5650 50  0001 C CNN
+F 3 "" H 2900 5650 50  0001 C CNN
+	1    2900 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR012
+U 1 1 5E57F37C
+P 7450 1800
+F 0 "#PWR012" H 7450 1650 50  0001 C CNN
+F 1 "+5V" H 7465 1973 50  0000 C CNN
+F 2 "" H 7450 1800 50  0001 C CNN
+F 3 "" H 7450 1800 50  0001 C CNN
+	1    7450 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR04
+U 1 1 5E58152A
+P 3650 2150
+F 0 "#PWR04" H 3650 2000 50  0001 C CNN
+F 1 "+5V" V 3665 2278 50  0000 L CNN
+F 2 "" H 3650 2150 50  0001 C CNN
+F 3 "" H 3650 2150 50  0001 C CNN
+	1    3650 2150
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 5E582A74
+P 3650 2550
+F 0 "#PWR05" H 3650 2300 50  0001 C CNN
+F 1 "GND" V 3655 2422 50  0000 R CNN
+F 2 "" H 3650 2550 50  0001 C CNN
+F 3 "" H 3650 2550 50  0001 C CNN
+	1    3650 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L MCU_Module:Arduino_Nano_v3.x A1
+U 1 1 5E56C17E
+P 7250 2900
+F 0 "A1" H 7087 1811 50  0000 C CNN
+F 1 "Arduino_Nano_v3.x" H 7250 1575 50  0000 C CNN
+F 2 "Module:Arduino_Nano" H 7400 1950 50  0001 L CNN
+F 3 "http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf" H 7250 1900 50  0001 C CNN
+	1    7250 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR010
+U 1 1 5E58389C
+P 7250 3950
+F 0 "#PWR010" H 7250 3700 50  0001 C CNN
+F 1 "GND" H 7205 3777 50  0000 C CNN
+F 2 "" H 7250 3950 50  0001 C CNN
+F 3 "" H 7250 3950 50  0001 C CNN
+	1    7250 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR011
+U 1 1 5E584F64
+P 7350 3950
+F 0 "#PWR011" H 7350 3700 50  0001 C CNN
+F 1 "GND" H 7402 3777 50  0000 C CNN
+F 2 "" H 7350 3950 50  0001 C CNN
+F 3 "" H 7350 3950 50  0001 C CNN
+	1    7350 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VDD #PWR09
+U 1 1 5E585203
+P 7150 1800
+F 0 "#PWR09" H 7150 1650 50  0001 C CNN
+F 1 "VDD" H 7167 1973 50  0000 C CNN
+F 2 "" H 7150 1800 50  0001 C CNN
+F 3 "" H 7150 1800 50  0001 C CNN
+	1    7150 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7150 1800 7150 1900
+Wire Wire Line
+	7450 1900 7450 1800
+Wire Wire Line
+	7350 3900 7350 3950
+Wire Wire Line
+	7250 3900 7250 3950
+Text GLabel 4400 2650 0    50   Input ~ 0
+SCL
+Text GLabel 4400 2750 0    50   BiDi ~ 0
+SDA
+Wire Wire Line
+	2900 5650 2900 5700
+Wire Wire Line
+	2900 6800 2900 6750
+Text GLabel 2800 6300 0    50   Output ~ 0
+TEMT6000
+Wire Wire Line
+	2900 6300 2800 6300
+Connection ~ 2900 6300
+Wire Wire Line
+	2900 6300 2900 6400
+Text GLabel 7750 3300 2    50   BiDi ~ 0
+SDA
+Text GLabel 7750 3400 2    50   Output ~ 0
+SCL
+$Comp
+L Device:CP C3
+U 1 1 5E58AE64
+P 3850 2350
+F 0 "C3" H 3732 2396 50  0000 R CNN
+F 1 "22uFx6.3v" H 3732 2305 50  0000 R CNN
+F 2 "" H 3888 2200 50  0001 C CNN
+F 3 "~" H 3850 2350 50  0001 C CNN
+	1    3850 2350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5E58C923
+P 3100 2800
+F 0 "R2" V 2893 2800 50  0000 C CNN
+F 1 "8.2k" V 2984 2800 50  0000 C CNN
+F 2 "" V 3030 2800 50  0001 C CNN
+F 3 "~" H 3100 2800 50  0001 C CNN
+	1    3100 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5E58D40F
+P 3100 3150
+F 0 "R3" V 2893 3150 50  0000 C CNN
+F 1 "8.2k" V 2984 3150 50  0000 C CNN
+F 2 "" V 3030 3150 50  0001 C CNN
+F 3 "~" H 3100 3150 50  0001 C CNN
+	1    3100 3150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 5E5922FA
+P 3400 3500
+F 0 "C2" H 3515 3546 50  0000 L CNN
+F 1 "0.1uF" H 3515 3455 50  0000 L CNN
+F 2 "" H 3438 3350 50  0001 C CNN
+F 3 "~" H 3400 3500 50  0001 C CNN
+	1    3400 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C4
+U 1 1 5E593266
+P 3850 3500
+F 0 "C4" H 3965 3546 50  0000 L CNN
+F 1 "0.1uF" H 3965 3455 50  0000 L CNN
+F 2 "" H 3888 3350 50  0001 C CNN
+F 3 "~" H 3850 3500 50  0001 C CNN
+	1    3850 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 3150 3400 3150
+Wire Wire Line
+	3400 3150 3400 3350
+Wire Wire Line
+	3250 2800 3850 2800
+Wire Wire Line
+	3850 2800 3850 3050
+$Comp
+L power:GND #PWR03
+U 1 1 5E5941F8
+P 3400 3800
+F 0 "#PWR03" H 3400 3550 50  0001 C CNN
+F 1 "GND" H 3405 3627 50  0000 C CNN
+F 2 "" H 3400 3800 50  0001 C CNN
+F 3 "" H 3400 3800 50  0001 C CNN
+	1    3400 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5E594EC8
+P 3850 3800
+F 0 "#PWR06" H 3850 3550 50  0001 C CNN
+F 1 "GND" H 3855 3627 50  0000 C CNN
+F 2 "" H 3850 3800 50  0001 C CNN
+F 3 "" H 3850 3800 50  0001 C CNN
+	1    3850 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 3650 3400 3800
+Wire Wire Line
+	3850 3650 3850 3800
+Text GLabel 2950 3150 0    50   Input ~ 0
+TEMT6000
+Text GLabel 2950 2800 0    50   Input ~ 0
+LED_I
+Wire Wire Line
+	3400 3150 4400 3150
+Connection ~ 3400 3150
+Wire Wire Line
+	4400 3050 3850 3050
+Connection ~ 3850 3050
+Wire Wire Line
+	3850 3050 3850 3350
+$Comp
+L LED:WS2812B D1
+U 1 1 5E59C605
+P 4700 6000
+F 0 "D1" H 5044 6046 50  0000 L CNN
+F 1 "WS2812B" H 5044 5955 50  0000 L CNN
+F 2 "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm" H 4750 5700 50  0001 L TNN
+F 3 "https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf" H 4800 5625 50  0001 L TNN
+	1    4700 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5E59DA39
+P 4700 6650
+F 0 "R4" H 4770 6696 50  0000 L CNN
+F 1 "R" H 4770 6605 50  0000 L CNN
+F 2 "" V 4630 6650 50  0001 C CNN
+F 3 "~" H 4700 6650 50  0001 C CNN
+	1    4700 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5E59E797
+P 4700 6850
+F 0 "#PWR08" H 4700 6600 50  0001 C CNN
+F 1 "GND" H 4705 6677 50  0000 C CNN
+F 2 "" H 4700 6850 50  0001 C CNN
+F 3 "" H 4700 6850 50  0001 C CNN
+	1    4700 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR07
+U 1 1 5E59F4D7
+P 4700 5650
+F 0 "#PWR07" H 4700 5500 50  0001 C CNN
+F 1 "+5V" H 4715 5823 50  0000 C CNN
+F 2 "" H 4700 5650 50  0001 C CNN
+F 3 "" H 4700 5650 50  0001 C CNN
+	1    4700 5650
+	1    0    0    -1  
+$EndComp
+Text GLabel 4400 6000 0    50   Input ~ 0
+LED_DIN
+Wire Wire Line
+	4700 5650 4700 5700
+Wire Wire Line
+	4700 6850 4700 6800
+Wire Wire Line
+	4700 6500 4700 6400
+Text GLabel 4800 6400 2    50   Output ~ 0
+LED_I
+Wire Wire Line
+	4800 6400 4700 6400
+Connection ~ 4700 6400
+Wire Wire Line
+	4700 6400 4700 6300
+Wire Notes Line
+	5450 5400 5450 7200
+Wire Notes Line
+	2050 7200 2050 5400
+Text Notes 4000 7150 2    79   ~ 0
+45x30x15 Black plastic box
+Wire Wire Line
+	3650 2550 3850 2550
+Wire Wire Line
+	3850 2550 3850 2500
+Wire Wire Line
+	3650 2150 3850 2150
+Wire Wire Line
+	3850 2150 3850 2200
+Wire Wire Line
+	3850 2550 4400 2550
+Connection ~ 3850 2550
+Wire Wire Line
+	3850 2150 4400 2150
+Wire Wire Line
+	4400 2150 4400 2450
+Connection ~ 3850 2150
+$Comp
+L Device:C C1
+U 1 1 5E5BD703
+P 2200 6000
+F 0 "C1" H 2085 6046 50  0000 R CNN
+F 1 "22uFx6.3V" H 2085 5955 50  0000 R CNN
+F 2 "" H 2238 5850 50  0001 C CNN
+F 3 "~" H 2200 6000 50  0001 C CNN
+	1    2200 6000
+	-1   0    0    -1  
+$EndComp
+Connection ~ 2900 6750
+Wire Wire Line
+	2900 6750 2900 6700
+Connection ~ 2900 5700
+Wire Wire Line
+	2900 5700 2900 5800
+Text GLabel 6750 3000 0    50   Output ~ 0
+LED_DIN
+Text GLabel 6750 3100 0    50   Output ~ 0
+LED_SPI_CLD
+Text GLabel 6750 3200 0    50   Output ~ 0
+LED_SPI_DATA
+Wire Wire Line
+	2200 5700 2200 5850
+Wire Wire Line
+	2200 5700 2900 5700
+Wire Wire Line
+	2200 6150 2200 6750
+Wire Wire Line
+	2200 6750 2900 6750
+Wire Notes Line
+	2050 5400 5450 5400
+Wire Notes Line
+	2050 7200 5450 7200
+Text Notes 8900 7650 2    71   ~ 0
+Feb. 26, 2020
+Text Notes 10800 7650 2    71   ~ 0
+1.0
+Text Notes 9950 7500 2    71   ~ 0
+ARDUINO NANO LED Test for addressable LEDs
+$EndSCHEMATC
